@@ -534,6 +534,10 @@ function wireButtons() {
 /* ---------- Finish: sederhana ---------- */
 function openFinish() {
   show('screen-finish');
+  try {
+    render();
+    $('finish-img').src = canvas.toDataURL('image/jpeg', 0.85);
+  } catch (e) {}
   speak('Hebat! Warnanya cantik!');
   pop(880, 0.15);
   setTimeout(() => pop(660, 0.15), 150);
