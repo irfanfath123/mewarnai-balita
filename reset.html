@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-store">
+<title>Memuat ulang…</title>
+</head>
+<body style="font-family:sans-serif;text-align:center;padding:60px 20px;background:#FFF7E6;color:#4A3728">
+<p style="font-size:20px">🔄 Membersihkan cache lama…</p>
+<script>
+(async function () {
+  try {
+    if ('serviceWorker' in navigator) {
+      var regs = await navigator.serviceWorker.getRegistrations();
+      for (var i = 0; i < regs.length; i++) { await regs[i].unregister(); }
+    }
+    if ('caches' in window) {
+      var keys = await caches.keys();
+      for (var j = 0; j < keys.length; j++) { await caches.delete(keys[j]); }
+    }
+  } catch (e) { /* abaikan */ }
+  // Galeri "Karyaku" (localStorage) TIDAK dihapus — hanya cache aplikasi.
+  location.replace('./index.html');
+})();
+</script>
+</body>
+</html>

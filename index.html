@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Mewarnai Balita</title>
+<meta name="description" content="Aplikasi menggambar dan mewarnai untuk balita. 100% orisinal, bisa offline.">
+<meta name="theme-color" content="#FF8C42">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles-v9.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== BERANDA ===== -->
+  <section id="screen-home" class="screen active">
+    <header class="topbar">
+      <div class="brand"><span class="brand-emoji">🎨</span><h1>Mewarnai Balita</h1></div>
+      <div class="top-actions">
+        <button id="btn-sound" class="icon-btn" title="Suara">🔊</button>
+        <button id="btn-gallery" class="icon-btn" title="Karyaku">🖼️</button>
+      </div>
+    </header>
+    <div id="home-cats">
+      <p class="subtitle">Pilih gambar kesukaanmu! 👆</p>
+      <div id="cat-grid" class="cat-grid"></div>
+    </div>
+    <footer class="footnote">Semua gambar orisinal &bull; Tanpa iklan &bull; Bisa offline</footer>
+  </section>
+
+  <!-- ===== EDITOR ===== -->
+  <section id="screen-editor" class="screen">
+    <div id="editor-body">
+      <div id="canvas-frame">
+        <canvas id="canvas"></canvas>
+        <div id="canvas-loading" class="canvas-loading hidden">⏳ Memuat gambar...</div>
+        <button id="btn-back" class="fab-btn fab-back" title="Kembali">←</button>
+        <div class="fab-stack fab-left">
+          <button id="btn-undo" class="fab-btn fab-undo" title="Urungkan">↩</button>
+          <button id="btn-clear" class="fab-btn fab-trash" title="Hapus semua">🗑</button>
+        </div>
+        <div class="fab-stack fab-right">
+          <button id="btn-brushes" class="fab-btn fab-purple" title="Kuas">🖌️</button>
+          <button id="btn-colors" class="fab-btn fab-rainbow" title="Warna">🌈</button>
+        </div>
+        <button id="btn-finish" class="done-fab right" title="Selesai mewarnai!"></button>
+        <div id="panel-brushes" class="side-panel hidden">
+          <div id="brush-list" class="brush-list"></div>
+        </div>
+        <div id="panel-colors" class="side-panel hidden">
+          <div id="color-vivid" class="color-row"></div>
+          <div id="color-pastel" class="color-grid"></div>
+        </div>
+      </div>
+    </div>
+    <div id="context-bar">
+      <div id="sec-sizes" class="tool-section hidden">
+        <button class="brush-btn brush-size" data-size="10" title="Kecil"><span class="dot" style="width:12px;height:12px"></span></button>
+        <button class="brush-btn brush-size active" data-size="22" title="Sedang"><span class="dot" style="width:20px;height:20px"></span></button>
+        <button class="brush-btn brush-size" data-size="40" title="Besar"><span class="dot" style="width:28px;height:28px"></span></button>
+        <button id="btn-eraser" class="brush-btn" title="Penghapus">🧽</button>
+      </div>
+      <div id="sec-stickers" class="tool-section hidden">
+        <div id="sticker-bar" class="sticker-bar"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DIALOG ANAK ===== -->
+  <div id="kid-modal" class="kid-modal hidden">
+    <div class="kid-modal-card">
+      <div id="kid-modal-emoji" class="kid-modal-emoji">❓</div>
+      <p id="kid-modal-text" class="kid-modal-text">Yakin?</p>
+      <div class="kid-modal-btns">
+        <button id="kid-modal-no" class="kid-modal-btn no">Tidak</button>
+        <button id="kid-modal-yes" class="kid-modal-btn yes">Ya! 👍</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GALERI ===== -->
+  <section id="screen-gallery" class="screen">
+    <header class="topbar">
+      <button id="btn-back2" class="icon-btn" title="Kembali">←</button>
+      <h1 class="screen-title">Karyaku 🌟</h1>
+    </header>
+    <div id="gallery-grid" class="gallery-grid"></div>
+    <p id="gallery-empty" class="subtitle">Belum ada karya. Yuk mewarnai dulu!</p>
+  </section>
+
+  <!-- ===== FINISH: animasi interaktif ===== -->
+  <section id="screen-finish" class="screen">
+    <div id="finish-wrap">
+      <canvas id="anim-canvas"></canvas>
+      <div class="finish-text">🎉 Hebat! 🎉</div>
+      <button id="btn-finish-back" class="fab-btn fab-back" title="Kembali">←</button>
+      <button id="btn-finish-recolor" class="fab-btn fab-purple" title="Warnai lagi">🖌️</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- Lihat gambar besar -->
+<div id="viewer" class="viewer hidden">
+  <img id="viewer-img" alt="Karya">
+  <div class="viewer-actions">
+    <button id="viewer-close" class="icon-btn">✖️</button>
+    <button id="viewer-download" class="icon-btn" title="Unduh">💾</button>
+    <button id="viewer-delete" class="icon-btn">🗑️</button>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="app-v21.js"></script>
+</body>
+</html>
