@@ -531,13 +531,56 @@ function wireButtons() {
   $('btn-finish-home').onclick = () => { pop(600, 0.06); show('screen-home'); };
 }
 
-/* ---------- Finish: sederhana ---------- */
+/* ---------- Finish: meriah dengan animasi ---------- */
+const FINISH_EMOJI = {
+  laut:       ['🐠','🐟','🐙','🦀','🫧','🌊'],
+  kendaraan:  ['🚌','🚗','🚙','🚦','🛣️'],
+  unggas:     ['🐦','🦆','🕊️','☁️'],
+  liar:       ['🦁','🐘','🦒','🌴'],
+  peliharaan: ['🐶','🐱','🐰','🐹'],
+  bunga:      ['🌸','🌼','🌷','🦋'],
+  makanan:    ['🍎','🍩','🍕','🧁'],
+  rumah:      ['🏠','💡','📚','🪑'],
+  serangga:   ['🦋','🐝','🐞','🌼'],
+  angkasa:    ['🚀','⭐','🌙','🪐'],
+};
+const CONFETTI_COLORS = ['#E63946','#F4842B','#FFD23F','#2FBF71','#3A86FF','#FF4D8D','#8E44AD'];
+function buildFinishBg() {
+  const bg = $('finish-bg');
+  bg.innerHTML = '';
+  const cat = (currentPage && currentPage.cat) || '';
+  const emojis = FINISH_EMOJI[cat] || FINISH_EMOJI['makanan'];
+  // Objek relevan kategori: melayang/berenang
+  emojis.forEach((em, i) => {
+    const s = document.createElement('span');
+    s.className = 'finish-emoji';
+    s.textContent = em;
+    s.style.left = (5 + Math.random() * 85) + '%';
+    s.style.top = (8 + Math.random() * 70) + '%';
+    s.style.fontSize = (34 + Math.random() * 30) + 'px';
+    s.style.animationDuration = (3 + Math.random() * 4) + 's';
+    s.style.animationDelay = (Math.random() * 3) + 's';
+    bg.appendChild(s);
+  });
+  // Konfeti meriah
+  for (let i = 0; i < 28; i++) {
+    const c = document.createElement('span');
+    c.className = 'finish-confetti';
+    c.style.left = (Math.random() * 100) + '%';
+    c.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+    c.style.animationDuration = (2.5 + Math.random() * 3) + 's';
+    c.style.animationDelay = (Math.random() * 4) + 's';
+    if (Math.random() < 0.5) c.style.borderRadius = '50%';
+    bg.appendChild(c);
+  }
+}
 function openFinish() {
   show('screen-finish');
   try {
     render();
     $('finish-img').src = canvas.toDataURL('image/jpeg', 0.85);
   } catch (e) {}
+  buildFinishBg();
   speak('Hebat! Warnanya cantik!');
   pop(880, 0.15);
   setTimeout(() => pop(660, 0.15), 150);
