@@ -457,3 +457,25 @@ h1 { font-size: 26px; margin: 0; color: #E8590C; }
   0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
   100% { transform: translateY(110vh) rotate(720deg); opacity: .7; }
 }
+
+/* Interaktif: ledakan konfeti saat diketuk */
+.finish-burst {
+  position: absolute; width: 12px; height: 12px; border-radius: 3px;
+  pointer-events: none; z-index: 5;
+  animation: finish-burst .7s ease-out forwards;
+}
+@keyframes finish-burst {
+  0% { transform: translate(0,0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translate(var(--bx), var(--by)) rotate(var(--br)) scale(.3); opacity: 0; }
+}
+/* Gambar berputar saat diketuk */
+.finish-img.tap-spin { animation: finish-spin .8s ease-in-out; }
+@keyframes finish-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  30% { transform: rotate(180deg) scale(1.15); }
+  60% { transform: rotate(360deg) scale(.95); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+.finish-img { cursor: pointer; transition: transform .15s; }
+.finish-img:active { transform: scale(.96); }
+#finish-wrap { cursor: pointer; }

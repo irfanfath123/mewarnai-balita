@@ -1,7 +1,7 @@
 /* Service worker Mewarnai Balita — cache-first agar bisa offline */
 const CACHE = 'mewarnai-balita-v24';
 const FILES = [
-  './', './index.html', './styles-v10.css', './app-v24.js', './auto-colors-v1.js',
+  './', './index.html', './styles-v11.css', './app-v24.js', './auto-colors-v1.js',
   './kategori.html',
   './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png',

@@ -592,6 +592,28 @@ function buildFinishBg() {
     bg.appendChild(c);
   }
 }
+// Ledakan konfeti di titik ketuk
+function finishBurst(x, y) {
+  const wrap = $('finish-wrap');
+  const rect = wrap.getBoundingClientRect();
+  for (let i = 0; i < 12; i++) {
+    const s = document.createElement('span');
+    s.className = 'finish-burst';
+    s.style.left = (x - rect.left) + 'px';
+    s.style.top = (y - rect.top) + 'px';
+    s.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+    const ang = (Math.PI * 2 * i / 12) + Math.random() * .5;
+    const dist = 60 + Math.random() * 80;
+    s.style.setProperty('--bx', Math.cos(ang) * dist + 'px');
+    s.style.setProperty('--by', Math.sin(ang) * dist + 'px');
+    s.style.setProperty('--br', (Math.random() * 720 - 360) + 'deg');
+    if (Math.random() < .4) s.style.borderRadius = '50%';
+    wrap.appendChild(s);
+    setTimeout(() => s.remove(), 750);
+  }
+  pop(500 + Math.random() * 300, .12);
+}
+
 function openFinish() {
   show('screen-finish');
   try {
@@ -599,6 +621,22 @@ function openFinish() {
     $('finish-img').src = canvas.toDataURL('image/jpeg', 0.85);
   } catch (e) {}
   buildFinishBg();
+  // Interaktif: ketuk layar = ledakan konfeti, ketuk gambar = berputar
+  const wrap = $('finish-wrap');
+  wrap.onclick = (e) => {
+    if (e.target.closest('.finish-btns') || e.target.closest('#btn-finish-back')) return;
+    finishBurst(e.clientX, e.clientY);
+  };
+  const fimg = $('finish-img');
+  fimg.onclick = (e) => {
+    e.stopPropagation();
+    fimg.classList.remove('tap-spin');
+    void fimg.offsetWidth; // restart animasi
+    fimg.classList.add('tap-spin');
+    speak('Yeay! Bagus sekali!');
+    pop(700, .15);
+    setTimeout(() => fimg.classList.remove('tap-spin'), 850);
+  };
   speak('Hebat! Warnanya cantik!');
   pop(880, 0.15);
   setTimeout(() => pop(660, 0.15), 150);
