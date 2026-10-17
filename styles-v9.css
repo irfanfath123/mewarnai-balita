@@ -408,3 +408,19 @@ h1 { font-size: 26px; margin: 0; color: #E8590C; }
 
 /* ===== v21: tombol finish ala referensi ===== */
 #btn-finish-recolor { bottom: 14px; left: 14px; }
+
+/* v23: palet warna selalu terlihat di bawah kanvas */
+#palette-bar {
+  background: #FFF8F0;
+  border-top: 2px solid #FFE0B8;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  max-height: 32vh;
+  overflow-y: auto;
+}
+#palette-bar .color-row { display: flex; gap: 10px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 2px; }
+#palette-bar .color-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; }
+#palette-bar .swatch-dot { width: 44px; height: 44px; flex: 0 0 auto; border-radius: 50%; }
+#palette-bar .color-grid .swatch-dot { width: 100%; aspect-ratio: 1; }
+/* v23: tombol finish sederhana */
+.finish-btns { display: flex; gap: 12px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+#finish-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 24px; }

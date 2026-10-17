@@ -30,7 +30,7 @@
     <footer class="footnote">Semua gambar orisinal &bull; Tanpa iklan &bull; Bisa offline</footer>
   </section>
 
-  <!-- ===== EDITOR ===== -->
+  <!-- ===== EDITOR (hanya mewarnai) ===== -->
   <section id="screen-editor" class="screen">
     <div id="editor-body">
       <div id="canvas-frame">
@@ -41,29 +41,11 @@
           <button id="btn-undo" class="fab-btn fab-undo" title="Urungkan">↩</button>
           <button id="btn-clear" class="fab-btn fab-trash" title="Hapus semua">🗑</button>
         </div>
-        <div class="fab-stack fab-right">
-          <button id="btn-brushes" class="fab-btn fab-purple" title="Kuas">🖌️</button>
-          <button id="btn-colors" class="fab-btn fab-rainbow" title="Warna">🌈</button>
-        </div>
         <button id="btn-finish" class="done-fab right" title="Selesai mewarnai!"></button>
-        <div id="panel-brushes" class="side-panel hidden">
-          <div id="brush-list" class="brush-list"></div>
-        </div>
-        <div id="panel-colors" class="side-panel hidden">
-          <div id="color-vivid" class="color-row"></div>
-          <div id="color-pastel" class="color-grid"></div>
-        </div>
       </div>
-    </div>
-    <div id="context-bar">
-      <div id="sec-sizes" class="tool-section hidden">
-        <button class="brush-btn brush-size" data-size="10" title="Kecil"><span class="dot" style="width:12px;height:12px"></span></button>
-        <button class="brush-btn brush-size active" data-size="22" title="Sedang"><span class="dot" style="width:20px;height:20px"></span></button>
-        <button class="brush-btn brush-size" data-size="40" title="Besar"><span class="dot" style="width:28px;height:28px"></span></button>
-        <button id="btn-eraser" class="brush-btn" title="Penghapus">🧽</button>
-      </div>
-      <div id="sec-stickers" class="tool-section hidden">
-        <div id="sticker-bar" class="sticker-bar"></div>
+      <div id="palette-bar">
+        <div id="color-vivid" class="color-row"></div>
+        <div id="color-pastel" class="color-grid"></div>
       </div>
     </div>
   </section>
@@ -90,13 +72,16 @@
     <p id="gallery-empty" class="subtitle">Belum ada karya. Yuk mewarnai dulu!</p>
   </section>
 
-  <!-- ===== FINISH: animasi interaktif ===== -->
+  <!-- ===== FINISH ===== -->
   <section id="screen-finish" class="screen">
     <div id="finish-wrap">
-      <canvas id="anim-canvas"></canvas>
       <div class="finish-text">🎉 Hebat! 🎉</div>
+      <p class="subtitle">Warnanya cantik sekali!</p>
+      <div class="finish-btns">
+        <button id="btn-finish-recolor" class="kid-modal-btn yes">🎨 Warnai lagi</button>
+        <button id="btn-finish-home" class="kid-modal-btn">🏠 Pilih gambar</button>
+      </div>
       <button id="btn-finish-back" class="fab-btn fab-back" title="Kembali">←</button>
-      <button id="btn-finish-recolor" class="fab-btn fab-purple" title="Warnai lagi">🖌️</button>
     </div>
   </section>
 
@@ -114,6 +99,6 @@
 
 <div id="toast" class="toast hidden"></div>
 
-<script src="app-v22.js"></script>
+<script src="app-v23.js"></script>
 </body>
 </html>
