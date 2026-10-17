@@ -410,7 +410,10 @@ h1 { font-size: 26px; margin: 0; color: #E8590C; }
 #btn-finish-recolor { bottom: 14px; left: 14px; }
 
 /* v23: palet warna selalu terlihat di bawah kanvas */
+#editor-body { flex-direction: column; }
+#canvas-frame { flex: 1 1 auto; min-height: 0; }
 #palette-bar {
+  flex: 0 0 auto;
   background: #FFF8F0;
   border-top: 2px solid #FFE0B8;
   padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
