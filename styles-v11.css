@@ -329,6 +329,7 @@ h1 { font-size: 26px; margin: 0; color: #E8590C; }
 .fab-undo { background: radial-gradient(circle at 32% 28%, #E8E8E8, #BDBDBD 70%); }
 .fab-trash { background: radial-gradient(circle at 32% 28%, #C77DFF, #8E44AD 70%); }
 .fab-auto { background: radial-gradient(circle at 32% 28%, #FFD93D, #FF8C42 70%); }
+.fab-sticker { background: radial-gradient(circle at 32% 28%, #FFD93D, #F4A900 70%); }
 .fab-purple { background: radial-gradient(circle at 32% 28%, #D0A6FF, #9B5DE5 70%); }
 .fab-rainbow { background: linear-gradient(135deg, #FF5D5D, #FF9F1C, #FFD23F, #2FBF71, #3A86FF, #B565D8); }
 /* panel geser dari kanan */
@@ -479,3 +480,19 @@ h1 { font-size: 26px; margin: 0; color: #E8590C; }
 .finish-img { cursor: pointer; transition: transform .15s; }
 .finish-img:active { transform: scale(.96); }
 #finish-wrap { cursor: pointer; }
+
+/* Stiker */
+.sticker-bar {
+  display: flex; gap: 8px; overflow-x: auto; padding: 8px 4px;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.sticker-bar::-webkit-scrollbar { display: none; }
+.sticker-bar.hidden { display: none; }
+.sticker-btn {
+  flex: 0 0 auto; width: 52px; height: 52px; font-size: 30px;
+  border: 3px solid transparent; border-radius: 14px; background: #FFF;
+  box-shadow: 0 2px 6px rgba(0,0,0,.12); cursor: pointer;
+  transition: transform .12s, border-color .12s;
+}
+.sticker-btn:active { transform: scale(.9); }
+.sticker-btn.active { border-color: #FFD23F; transform: scale(1.08); }

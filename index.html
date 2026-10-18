@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="stylesheet" href="styles-v11.css">
+<link rel="stylesheet" href="styles-v12.css">
 </head>
 <body>
 <div id="app">
@@ -40,11 +40,13 @@
         <div class="fab-stack fab-left">
           <button id="btn-undo" class="fab-btn fab-undo" title="Urungkan">↩</button>
           <button id="btn-auto" class="fab-btn fab-auto" title="Warnai otomatis">🪄</button>
+          <button id="btn-sticker" class="fab-btn fab-sticker" title="Stiker">🌟</button>
           <button id="btn-clear" class="fab-btn fab-trash" title="Hapus semua">🗑</button>
         </div>
         <button id="btn-finish" class="done-fab right" title="Selesai mewarnai!"></button>
       </div>
       <div id="palette-bar">
+        <div id="sticker-bar" class="sticker-bar hidden"></div>
         <div id="color-vivid" class="color-row"></div>
         <div id="color-pastel" class="color-grid"></div>
       </div>

@@ -127,6 +127,8 @@ const MAX_UNDO = 20, MAX_GALLERY = 30;
 
 /* ---------- State (hanya mewarnai) ---------- */
 let color = COLORS_VIVID[1]; // merah
+const STICKERS = ['⭐','❤️','🎈','🐠','🌸','🦋','🐱','🚗','🌙','🍎','🐝','🌈'];
+let stickerMode = false, currentSticker = STICKERS[0];
 let currentPage = null;
 let CW = 0, CH = 0;
 let inkMask = null;
@@ -398,6 +400,20 @@ function autoColor() {
   toast('✨ Sudah diwarnai otomatis!');
 }
 
+function buildStickerBar() {
+  const bar = $('sticker-bar'); bar.innerHTML = '';
+  STICKERS.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'sticker-btn' + (s === currentSticker ? ' active' : '');
+    b.textContent = s;
+    b.onclick = () => {
+      currentSticker = s;
+      bar.querySelectorAll('.sticker-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active'); pop(750, 0.06);
+    };
+    bar.appendChild(b);
+  });
+}
 function gallery() { try { return JSON.parse(localStorage.getItem('mewarnai-gallery') || '[]'); } catch { return []; } }
 
 function saveGallery(g) {
@@ -481,6 +497,14 @@ function buildPalette() {
 }
 
 /* ---------- Ketuk untuk mewarnai ---------- */
+function placeSticker(x, y) {
+  pushUndo();
+  const c = fillCtx;
+  c.font = '72px serif';
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText(currentSticker, x, y);
+  render(); pop(700, 0.07); dirty = true;
+}
 function toCanvas(e) {
   const r = canvas.getBoundingClientRect();
   return [(e.clientX - r.left) * CW / r.width, (e.clientY - r.top) * CH / r.height];
@@ -489,6 +513,7 @@ if (!isCatPage) {
 canvas.addEventListener('pointerdown', e => {
   e.preventDefault();
   const [x, y] = toCanvas(e);
+  if (stickerMode) { placeSticker(x, y); return; }
   pushUndo();
   if (floodFill(x, y, color)) {
     render(); pop(520); dirty = true;
@@ -505,6 +530,13 @@ function wireButtons() {
   $('btn-back').onclick = () => { autoSave(); pop(600, 0.06); show('screen-home'); };
   $('btn-undo').onclick = () => { doUndo(); };
   $('btn-auto').onclick = () => { autoColor(); };
+  $('btn-sticker').onclick = () => {
+    stickerMode = !stickerMode;
+    $('btn-sticker').classList.toggle('active-tool', stickerMode);
+    $('sticker-bar').classList.toggle('hidden', !stickerMode);
+    if (stickerMode) buildStickerBar();
+    pop(600, 0.06);
+  };
   $('btn-clear').onclick = () => {
     kidConfirm('🗑', 'Hapus semua warna?', () => {
       pushUndo();
