@@ -527,8 +527,8 @@ canvas.addEventListener('contextmenu', e => e.preventDefault());
 
 /* ---------- Tombol ---------- */
 function wireButtons() {
-  onBtn('btn-back', () => { autoSave(); pop(600, 0.06); show('screen-home'); });
   const onBtn = (id, fn) => { const b = $(id); if (b) b.onclick = fn; };
+  onBtn('btn-back', () => { autoSave(); pop(600, 0.06); show('screen-home'); });
   onBtn('btn-undo', () => { doUndo(); });
   onBtn('btn-auto', () => { autoColor(); });
   onBtn('btn-sticker', () => {
@@ -680,7 +680,13 @@ function openFinish() {
 let greeted = false, deepLinked = false;
 function initApp() {
   let openPid = null;
-  try { openPid = sessionStorage.getItem('mewarnai-open'); sessionStorage.removeItem('mewarnai-open'); } catch (e) {}
+  try {
+    openPid = new URLSearchParams(location.search).get('open');
+    if (!openPid) {
+      openPid = sessionStorage.getItem('mewarnai-open');
+      sessionStorage.removeItem('mewarnai-open');
+    }
+  } catch (e) {}
   deepLinked = !!openPid;
   buildHome(); buildPalette(); wireButtons();
   if (openPid) {
@@ -699,8 +705,7 @@ function initCatPage() {
     card.innerHTML = `<img src="${p.src}" alt="${p.name}" loading="lazy"><div class="name">${p.name}</div>`;
     card.onclick = () => {
       pop(700);
-      try { sessionStorage.setItem('mewarnai-open', p.id); } catch (e) {}
-      location.href = 'index.html';
+      location.href = 'index.html?open=' + p.id;
     };
     grid.appendChild(card);
   });
