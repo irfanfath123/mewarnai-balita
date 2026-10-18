@@ -527,32 +527,33 @@ canvas.addEventListener('contextmenu', e => e.preventDefault());
 
 /* ---------- Tombol ---------- */
 function wireButtons() {
-  $('btn-back').onclick = () => { autoSave(); pop(600, 0.06); show('screen-home'); };
-  $('btn-undo').onclick = () => { doUndo(); };
-  $('btn-auto').onclick = () => { autoColor(); };
-  $('btn-sticker').onclick = () => {
+  onBtn('btn-back', () => { autoSave(); pop(600, 0.06); show('screen-home'); });
+  const onBtn = (id, fn) => { const b = $(id); if (b) b.onclick = fn; };
+  onBtn('btn-undo', () => { doUndo(); });
+  onBtn('btn-auto', () => { autoColor(); });
+  onBtn('btn-sticker', () => {
     stickerMode = !stickerMode;
     $('btn-sticker').classList.toggle('active-tool', stickerMode);
-    $('sticker-bar').classList.toggle('hidden', !stickerMode);
+    const sb = $('sticker-bar'); if (sb) sb.classList.toggle('hidden', !stickerMode);
     if (stickerMode) buildStickerBar();
     pop(600, 0.06);
-  };
-  $('btn-clear').onclick = () => {
+  });
+  onBtn('btn-clear', () => {
     kidConfirm('🗑', 'Hapus semua warna?', () => {
       pushUndo();
       fillCtx.clearRect(0, 0, CW, CH);
       render(); dirty = true; pop(400, 0.12);
     });
-  };
-  $('btn-finish').onclick = () => { autoSave(); openFinish(); };
-  $('btn-sound').onclick = () => {
+  });
+  onBtn('btn-finish', () => { autoSave(); openFinish(); });
+  onBtn('btn-sound', () => {
     soundOn = !soundOn;
     try { localStorage.setItem('mewarnai-sound', soundOn ? 'on' : 'off'); } catch (e) {}
     $('btn-sound').textContent = soundOn ? '🔊' : '🔇';
     pop(700, 0.06);
-  };
-  $('btn-gallery').onclick = () => { pop(700, 0.06); buildGallery(); show('screen-gallery'); };
-  $('btn-back2').onclick = () => { pop(600, 0.06); show('screen-home'); };
+  });
+  onBtn('btn-gallery', () => { pop(700, 0.06); buildGallery(); show('screen-gallery'); });
+  onBtn('btn-back2', () => { pop(600, 0.06); show('screen-home'); });
   $('viewer-close').onclick = () => { $('viewer').classList.add('hidden'); };
   $('viewer-download').onclick = () => {
     const a = document.createElement('a');
