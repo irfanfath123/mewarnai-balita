@@ -1,7 +1,12 @@
-/* Service worker Mewarnai Balita — cache-first agar bisa offline */
-const CACHE = 'mewarnai-balita-v26';
+/* Service worker Mewarnai Balita — cache-first agar bisa offline.
+   NAMA FILE INI STABIL (sw.js) DAN TIDAK BOLEH DIGANTI PER VERSI.
+   Pelajaran v25/v26: mengganti nama file SW tiap versi membuat pengguna
+   lama terjebak selamanya, karena peramban hanya memeriksa pembaruan pada
+   URL SW yang terdaftar (sw-v25.js tidak pernah berubah jadi v26).
+   Pembaruan versi cukup lewat CACHE dan daftar FILES di bawah ini. */
+const CACHE = 'mewarnai-balita-v27';
 const FILES = [
-  './', './index.html', './styles-v26.css', './app-v26.js', './auto-colors-v1.js',
+  './', './index.html', './styles-v27.css', './app-v27.js', './auto-colors-v1.js',
   './kategori.html',
   './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png',
@@ -22,7 +27,6 @@ self.addEventListener('fetch', e => {
     caches.match(e.request, { ignoreSearch: true }).then(hit => {
       if (hit) return hit;
       return fetch(e.request).then(res => {
-        // cache runtime: gambar & aset lain agar offline setelah dibuka sekali
         if (res.ok && new URL(e.request.url).origin === location.origin) {
           const copy = res.clone();
           caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});

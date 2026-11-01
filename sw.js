@@ -1,17 +1,15 @@
-/* Service worker Mewarnai Balita — cache-first agar bisa offline */
-const CACHE = 'mewarnai-balita-v3';
+/* Service worker Mewarnai Balita — cache-first agar bisa offline.
+   NAMA FILE INI STABIL (sw.js) DAN TIDAK BOLEH DIGANTI PER VERSI.
+   Pelajaran v25/v26: mengganti nama file SW tiap versi membuat pengguna
+   lama terjebak selamanya, karena peramban hanya memeriksa pembaruan pada
+   URL SW yang terdaftar (sw-v25.js tidak pernah berubah jadi v26).
+   Pembaruan versi cukup lewat CACHE dan daftar FILES di bawah ini. */
+const CACHE = 'mewarnai-balita-v27';
 const FILES = [
-  './', './index.html', './styles.css', './app.js',
+  './', './index.html', './styles-v27.css', './app-v27.js', './auto-colors-v1.js',
+  './kategori.html',
   './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png',
-  './assets/shark.png', './assets/cat.png',
-  './assets/dino.png', './assets/car.png',
-  './assets/butterfly.png', './assets/flower.png',
-  './assets/ship.png', './assets/house.png',
-  './assets/trace-shark.png', './assets/trace-cat.png',
-  './assets/trace-dino.png', './assets/trace-car.png',
-  './assets/trace-butterfly.png', './assets/trace-flower.png',
-  './assets/trace-ship.png', './assets/trace-house.png',
 ];
 self.addEventListener('install', e => {
   const fresh = FILES.map(u => new Request(u, { cache: 'reload' }));
@@ -26,6 +24,15 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   e.respondWith(
-    caches.match(e.request, { ignoreSearch: true }).then(hit => hit || fetch(e.request))
+    caches.match(e.request, { ignoreSearch: true }).then(hit => {
+      if (hit) return hit;
+      return fetch(e.request).then(res => {
+        if (res.ok && new URL(e.request.url).origin === location.origin) {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
+        }
+        return res;
+      });
+    })
   );
 });
